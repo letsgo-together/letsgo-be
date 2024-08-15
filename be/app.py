@@ -1,17 +1,10 @@
 from flask import Flask
+from router.ItemRouter import itemRouter
 import sys
-
-sys.path.append('..')
-from ai.test import printTest
-printTest()
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
-
+app.register_blueprint(itemRouter)
 
 if __name__ == '__main__':
     app.run()
