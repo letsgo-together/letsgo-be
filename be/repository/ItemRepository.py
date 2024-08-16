@@ -6,6 +6,14 @@ from be.entity.ItemEntity import ItemEntity
 
 
 class ItemRepository:
+    instance = None
+
+    @staticmethod
+    def getInstance(cls):
+        if cls.instance is None:
+            cls.instance = cls()
+        return cls.instance
+
     def __init__(self):
         self.connection = mysql.connector.connect(
             host=os.environ.get("DB_HOST"),
