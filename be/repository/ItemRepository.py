@@ -28,7 +28,7 @@ class ItemRepository:
 
     def createTableIfNotExist(self):
         query = """
-            CREATE TABLE IF NOT EXISTS items (
+            CREATE TABLE IF NOT EXISTS item (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 shape VARCHAR(255) NOT NULL,

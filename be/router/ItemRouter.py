@@ -1,4 +1,5 @@
 from flask import Blueprint
+from service.ItemService import ItemService
 
 itemRouter = Blueprint('itemRouter', __name__)
 itemService = ItemService.getInstance()
