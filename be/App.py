@@ -1,6 +1,9 @@
 from flask import Flask
 from router.ItemRouter import itemRouter
 import sys
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 app = Flask(__name__)

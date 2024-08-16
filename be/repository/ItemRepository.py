@@ -8,22 +8,23 @@ from be.entity.ItemEntity import ItemEntity
 class ItemRepository:
     instance = None
 
-    @staticmethod
+    @classmethod
     def getInstance(cls):
         if cls.instance is None:
-            cls.instance = cls()
+            cls.instance = cls()  # 인스턴스를 생성
         return cls.instance
 
     def __init__(self):
-        self.connection = mysql.connector.connect(
-            host=os.environ.get("DB_HOST"),
-            port=os.environ.get("DB_PORT"),
-            user=os.environ.get("DB_USER"),
-            password=os.environ.get("DB_PASSWORD"),
-            database=os.environ.get("DB_DATABASE")
-        )
-        self.cursor = self.connection.cursor()
-        self.createTableIfNotExist()  # 테이블이 없으면 생성
+        if not hasattr(self, 'connection'):  # 중복 초기화를 방지 (클래스에 connection이라는 변수가 없으면)
+            self.connection = mysql.connector.connect(
+                host=os.environ.get("DB_HOST"),
+                port=os.environ.get("DB_PORT"),
+                user=os.environ.get("DB_USER"),
+                password=os.environ.get("DB_PASSWORD"),
+                database=os.environ.get("DB_DATABASE")
+            )
+            self.cursor = self.connection.cursor()
+            self.createTableIfNotExist()  # 테이블이 없으면 생성
 
     def createTableIfNotExist(self):
         query = """
@@ -97,6 +98,6 @@ class ItemRepository:
             return False
 
     def __del__(self):
-        if self.connection.is_connected():
+        if hasattr(self, 'connection') and self.connection.is_connected():
             self.cursor.close()
             self.connection.close()

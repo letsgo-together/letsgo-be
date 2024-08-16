@@ -6,14 +6,14 @@ from be.repository.ItemRepository import ItemRepository
 class ItemService:
     instance = None
 
-    @staticmethod
+    @classmethod
     def getInstance(cls):
         if cls.instance is None:
             cls.instance = cls()
         return cls.instance
 
     def __init__(self):
-        self.itemRepository = ItemRepository.getInstance(ItemRepository)
+        self.itemRepository = ItemRepository.getInstance()
 
     def createItem(self, name: str, shape: str, location: str) -> Optional[ItemEntity]:
         item = ItemEntity(id=None, name=name, shape=shape, location=location)
