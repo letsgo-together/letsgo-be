@@ -74,3 +74,40 @@ def compare_objects(stored_objects, current_objects):
             })
 
     return matching_objects
+
+# #테스트
+# def main(image_path, stored_objects):
+#     # 이미지 로드
+#     image = cv2.imread(image_path)
+
+#     # 이미지가 제대로 로드되었는지 확인
+#     if image is None:
+#         raise ValueError(f"Error: Unable to load image at {image_path}")
+
+#     # 현재 이미지에서 객체 탐지
+#     current_objects = detect_objects(image)
+
+#     # 객체 비교
+#     result = compare_objects(stored_objects, current_objects)
+
+#     return result
+
+
+# # 테스트용 미리 저장된 객체 (예시)
+# stored_objects = [
+#     {'bbox': (905, 3, 1345, 581), 'confidence': 0.36, 'class_id': 62, 'class_name': 'tv',
+#      'unique_id': '9cfeb348-65ec-4cec-8b1a-a5898e71df26'},
+#     {'bbox': (300, 400, 350, 450), 'confidence': 0.8, 'class_id': 1, 'class_name': 'laptop',
+#      'unique_id': 'example-uuid-2'}
+# ]
+
+# # 테스트 이미지 경로
+# image_path = '/Users/haneul/Downloads/사물이미지.jpg'
+
+# # 메인 함수 호출 및 결과 출력
+# try:
+#     results = main(image_path, stored_objects)
+#     for obj in results:
+#         print(f"ID: {obj['id']}, BBox: {obj['bbox']}, Status: {obj['status']}")
+# except ValueError as e:
+#     print(e)
