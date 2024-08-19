@@ -1,6 +1,6 @@
 import cv2
 import torch
-import uuid  
+import uuid
 
 # YOLO 모델 로드
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
@@ -25,23 +25,22 @@ def detect_objects(image):
             'confidence': conf,
             'class_id': class_id,
             'class_name': model.names[class_id],
-            'unique_id': unique_id  
+            'unique_id': unique_id
         })
 
     return detected_objects
 
-# #테스트
-# #이미지 로드
-# image_path = ''
-# image = cv2.imread(image_path)
+# 이미지 로드
+image_path = '/Users/haneul/Downloads/사물이미지.jpg'  # 실제 이미지 경로로 수정
+image = cv2.imread(image_path)
 
-# # 이미지가 제대로 로드되었는지 확인
-# if image is None:
-#     print(f"Error: Unable to load image at {image_path}")
-# else:
-#     # 객체 탐지
-#     detect_objects(image)
+# 이미지가 제대로 로드되었는지 확인
+if image is None:
+    print(f"Error: Unable to load image at {image_path}")
+else:
+    # 객체 탐지
+    detected_objects = detect_objects(image)
 
-#     # 결과 출력
-#     for obj in detected_objects:
-#         print(f"Class: {obj['class_name']}, BBox: {obj['bbox']}, Confidence: {obj['confidence']:.2f}, Class ID: {obj['class_id']}, Unique ID: {obj['unique_id']}
+    # 결과 출력
+    for obj in detected_objects:
+        print(f"Class: {obj['class_name']}, BBox: {obj['bbox']}, Confidence: {obj['confidence']:.2f}, Class ID: {obj['class_id']}, Unique ID: {obj['unique_id']}")
