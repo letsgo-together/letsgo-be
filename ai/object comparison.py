@@ -1,3 +1,35 @@
+import cv2
+import torch
+import uuid
+import numpy as np
+
+# YOLO 모델 로드
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+
+
+def generate_unique_id():
+    """고유한 UUID를 생성합니다."""
+    return str(uuid.uuid4())
+
+
+def detect_objects(image):
+    """이미지에서 객체를 탐지하고 객체 정보를 반환합니다."""
+    results = model(image)
+    detected_objects = []
+    for det in results.xyxy[0]:
+        x1, y1, x2, y2 = map(int, det[:4])
+        conf = float(det[4])
+        class_id = int(det[5])
+        unique_id = generate_unique_id()  # 객체에 고유 ID를 생성합니다.
+        detected_objects.append({
+            'bbox': (x1, y1, x2, y2),
+            'confidence': conf,
+            'class_id': class_id,
+            'class_name': model.names[class_id],
+            'unique_id': unique_id
+        })
+    return detected_objects
+
 def calculate_distance(bbox1, bbox2):
     """두 바운딩 박스 간의 중심점 거리 계산"""
     x1_center = (bbox1[0] + bbox1[2]) / 2
