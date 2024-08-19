@@ -29,3 +29,19 @@ def detect_objects(image):
         })
 
     return detected_objects
+
+# #테스트
+# #이미지 로드
+# image_path = ''
+# image = cv2.imread(image_path)
+
+# # 이미지가 제대로 로드되었는지 확인
+# if image is None:
+#     print(f"Error: Unable to load image at {image_path}")
+# else:
+#     # 객체 탐지
+#     detect_objects(image)
+
+#     # 결과 출력
+#     for obj in detected_objects:
+#         print(f"Class: {obj['class_name']}, BBox: {obj['bbox']}, Confidence: {obj['confidence']:.2f}, Class ID: {obj['class_id']}, Unique ID: {obj['unique_id']}
