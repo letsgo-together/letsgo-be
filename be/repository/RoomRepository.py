@@ -2,10 +2,10 @@ import mysql.connector
 import os
 from mysql.connector import Error as MySQLError
 from typing import List, Optional
-from be.entity.ItemEntity import ItemEntity
+from be.entity.RoomEntity import RoomEntity
 
 
-class ItemRepository:
+class RoomRepository:
     instance = None
 
     @classmethod
@@ -15,7 +15,7 @@ class ItemRepository:
         return cls.instance
 
     def __init__(self):
-        if not hasattr(self, 'connection'):  # 중복 초기화를 방지 (클래스에 connection이라는 변수가 없으면)
+        if not hasattr(self, 'connection'):
             self.connection = mysql.connector.connect(
                 host=os.environ.get("DB_HOST"),
                 port=os.environ.get("DB_PORT"),
@@ -28,15 +28,9 @@ class ItemRepository:
 
     def createTableIfNotExist(self):
         query = """
-            CREATE TABLE IF NOT EXISTS item (
+            CREATE TABLE IF NOT EXISTS room (
                 id INT AUTO_INCREMENT PRIMARY KEY,
-                room_id INT NOT NULL,
-                bbox VARCHAR(255) NOT NULL,
-                confidence FLOAT NOT NULL,
-                class_id INT NOT NULL,
-                class_name VARCHAR(255) NOT NULL,
-                unique_id VARCHAR(255) NOT NULL
-                foreign key (room_id) references room(id)
+                default_image_url VARCHAR(255) NOT NULL
             )
         """
         self.cursor.execute(query)
