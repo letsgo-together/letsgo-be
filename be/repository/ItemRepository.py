@@ -62,6 +62,22 @@ class ItemRepository:
             ))
         return savedItems
 
+    def findAllByRoomId(self, roomId) -> List[ItemEntity]:
+        query = "SELECT * FROM item WHERE room_id = %s"
+        self.cursor.execute(query, (roomId,))
+        items = []
+        for (id, room_id, bbox, confidence, class_id, class_name, unique_id) in self.cursor:
+            items.append(ItemEntity(
+                id=id,
+                room_id=room_id,
+                bbox=bbox,
+                confidence=confidence,
+                class_id=class_id,
+                class_name=class_name,
+                unique_id=unique_id
+            ))
+        return items
+
     def __del__(self):
         if hasattr(self, 'connection') and self.connection.is_connected():
             self.cursor.close()
