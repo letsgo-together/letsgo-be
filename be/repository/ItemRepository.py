@@ -36,7 +36,6 @@ class ItemRepository:
                 class_id INT NOT NULL,
                 class_name VARCHAR(255) NOT NULL,
                 unique_id VARCHAR(255) NOT NULL
-                foreign key (room_id) references room(id)
             )
         """
         self.cursor.execute(query)
