@@ -41,6 +41,27 @@ class ItemRepository:
         self.cursor.execute(query)
         self.connection.commit()
 
+    def saveItems(self, room_id: int, items: List[object]) -> List[ItemEntity]:
+        query = """
+            INSERT INTO item (room_id, bbox, confidence, class_id, class_name, unique_id)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        savedItems = []
+        for item in items:
+            self.cursor.execute(query, (
+            room_id, item['bbox'], item['confidence'], item['class_id'], item['class_name'], item['unique_id']))
+            self.connection.commit()
+            savedItems.append(ItemEntity(
+                id=self.cursor.lastrowid,
+                room_id=room_id,
+                bbox=item['bbox'],
+                confidence=item['confidence'],
+                class_id=item['class_id'],
+                class_name=item['class_name'],
+                unique_id=item['unique_id']
+            ))
+        return savedItems
+
     def __del__(self):
         if hasattr(self, 'connection') and self.connection.is_connected():
             self.cursor.close()

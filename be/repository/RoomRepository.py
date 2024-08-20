@@ -29,8 +29,7 @@ class RoomRepository:
     def createTableIfNotExist(self):
         query = """
             CREATE TABLE IF NOT EXISTS room (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                default_image_url VARCHAR(255) NOT NULL
+                id INT AUTO_INCREMENT PRIMARY KEY
             )
         """
         self.cursor.execute(query)
@@ -40,7 +39,13 @@ class RoomRepository:
         query = "SELECT * FROM room"
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
-        return [RoomEntity(id=row[0], default_image_url=row[1]) for row in rows]
+        return [RoomEntity(id=row[0]) for row in rows]
+
+    def save(self) -> Optional[RoomEntity]:
+        query = "INSERT INTO room VALUES (NULL)"
+        self.cursor.execute(query)
+        self.connection.commit()
+        return RoomEntity(id=self.cursor.lastrowid)
 
     def __del__(self):
         if hasattr(self, 'connection') and self.connection.is_connected():
