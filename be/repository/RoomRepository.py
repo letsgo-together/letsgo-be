@@ -36,6 +36,12 @@ class RoomRepository:
         self.cursor.execute(query)
         self.connection.commit()
 
+    def findAll(self) -> List[RoomEntity]:
+        query = "SELECT * FROM room"
+        self.cursor.execute(query)
+        rows = self.cursor.fetchall()
+        return [RoomEntity(id=row[0], default_image_url=row[1]) for row in rows]
+
     def __del__(self):
         if hasattr(self, 'connection') and self.connection.is_connected():
             self.cursor.close()

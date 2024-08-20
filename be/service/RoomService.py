@@ -12,3 +12,6 @@ class RoomService:
 
     def __init__(self):
         self.roomRepository = RoomRepository.getInstance()
+
+    def findAll(self):
+        return self.roomRepository.findAll()
