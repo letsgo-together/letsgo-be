@@ -30,6 +30,7 @@ def detect_objects(image):
         })
     return detected_objects
 
+
 def calculate_distance(bbox1, bbox2):
     """두 바운딩 박스 간의 중심점 거리 계산"""
     x1_center = (bbox1[0] + bbox1[2]) / 2
@@ -84,17 +85,17 @@ def compare_objects(stored_objects, current_objects):
                         matching_objects.append({
                             'id': current_id,
                             'bbox': current_bbox,
-                            'status': "New position", 
+                            'status': "New position",
                             'current_bbox': f"{current_bbox}",
-                            'closest to' : f"{closest_obj_name}"
+                            'closest to': f"{closest_obj_name}"
                         })
                     else:
                         matching_objects.append({
                             'id': current_id,
                             'bbox': current_bbox,
                             'status': "New position",
-                            'current_bbox' : f"{current_bbox}",
-                            'closest to' : "but no other objects detected"
+                            'current_bbox': f"{current_bbox}",
+                            'closest to': "but no other objects detected"
                         })
                 break
         else:
