@@ -1,7 +1,7 @@
-from be.repository.ItemRepository import ItemRepository
+from be.repository.RoomRepository import RoomRepository
 
 
-class ItemService:
+class RoomService:
     instance = None
 
     @classmethod
@@ -11,4 +11,4 @@ class ItemService:
         return cls.instance
 
     def __init__(self):
-        self.itemRepository = ItemRepository.getInstance()
+        self.roomRepository = RoomRepository.getInstance()
