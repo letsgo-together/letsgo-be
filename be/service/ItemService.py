@@ -49,7 +49,8 @@ class ItemService:
         for class_name in class_names:
             description = find_and_describe_object(image, class_name)
             descriptions.append({
-                class_name: description
+                "class_name": class_name,
+                "description": description
             })
 
         return jsonify(descriptions)
