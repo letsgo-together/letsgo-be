@@ -36,8 +36,8 @@ def saveSelectedItems():
 
 
 @itemRouter.post("/items/find")
-def findItemPosition():
+def findItemsPosition():
     imageFile = request.files.get('image')
-    class_name = request.args.get('class_name')
-    return itemService.findItemPosition(imageFile, class_name)
+    class_names = request.args.get('class_names').split(',')
+    return itemService.findItemsPosition(imageFile, class_names)
 
