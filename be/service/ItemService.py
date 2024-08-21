@@ -27,7 +27,7 @@ class ItemService:
             return "Failed to process the image", 400
         detectedItems = detect_objects(image)
         for item in detectedItems:
-            item.class_name = changeClassNameToKor(item.class_name)
+            item.update({"class_name": changeClassNameToKor(item.get("class_name"))})
         return detectedItems
 
     def findAll(self):

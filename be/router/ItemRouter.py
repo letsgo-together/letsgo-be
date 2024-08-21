@@ -5,7 +5,7 @@ itemRouter = Blueprint('itemRouter', __name__)
 itemService = ItemService.getInstance()
 
 
-@itemRouter.get('/items/detect')
+@itemRouter.post('/items/detect')
 def detectItems():
     imageFile = request.files.get('image')
     return itemService.detectItems(imageFile)
