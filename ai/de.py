@@ -84,7 +84,6 @@ def find_and_describe_object(image, selected_item_name):
     # 선택된 물건의 위치 설명
     position_description = describe_relative_position(selected_object, detected_objects)
 
-    print(f"'{selected_item_name}'의 위치 설명: {position_description}")
     return position_description
 
 

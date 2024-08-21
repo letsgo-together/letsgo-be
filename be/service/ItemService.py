@@ -1,6 +1,7 @@
 from be.repository.ItemMemoryRepository import ItemMemoryRepository
 from ai.de import detect_objects, find_and_describe_object
 from be.util.util import changeClassNameToKor
+from flask import jsonify
 import numpy as np
 import cv2
 
@@ -50,6 +51,5 @@ class ItemService:
             descriptions.append({
                 class_name: description
             })
-        return {
-            descriptions: descriptions
-        }
+
+        return jsonify(descriptions)
