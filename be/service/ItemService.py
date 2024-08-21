@@ -1,5 +1,6 @@
 from be.repository.ItemMemoryRepository import ItemMemoryRepository
 from ai.object_comparison import detect_objects
+from be.util.util import changeClassNameToKor
 import numpy as np
 import cv2
 
@@ -25,6 +26,8 @@ class ItemService:
         if image is None:
             return "Failed to process the image", 400
         detectedItems = detect_objects(image)
+        for item in detectedItems:
+            item.class_name = changeClassNameToKor(item.class_name)
         return detectedItems
 
     def findAll(self):
