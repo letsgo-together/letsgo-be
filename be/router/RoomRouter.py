@@ -16,7 +16,7 @@ def createRoomAndDetectItems():
     return roomService.createRoomAndDetectItems(imageFile)
 
 
-@roomRouter.get('/rooms/<roomId>/diff')
-def getRoomDiff(roomId):
+@roomRouter.get('/rooms/<room_id>/diff')
+def getRoomDiff(room_id):
     imageFile = request.files.get('image')
-    return roomService.getRoomDiff(roomId, imageFile)
+    return roomService.getRoomDiff(room_id, imageFile)

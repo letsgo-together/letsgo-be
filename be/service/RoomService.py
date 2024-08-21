@@ -3,6 +3,7 @@ from be.repository.ItemRepository import ItemRepository
 from ai.object_comparison import detect_objects, compare_objects
 import numpy as np
 import cv2
+from flask import jsonify
 
 
 class RoomService:
@@ -30,11 +31,12 @@ class RoomService:
         if image is None:
             return "Failed to process the image", 400
         detectedItems = detect_objects(image)
-
         newRoom = self.roomRepository.save()
-        newItems = self.itemRepository.saveItems(newRoom.id, detectedItems)
 
-        return newItems
+        return jsonify({
+            room_id: newRoom.id,
+            detectedItems: detectedItems
+        })
 
     def getRoomDiff(self, roomId, imageFile):
         if imageFile is None:

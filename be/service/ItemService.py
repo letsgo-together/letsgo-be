@@ -13,5 +13,8 @@ class ItemService:
     def __init__(self):
         self.itemRepository = ItemRepository.getInstance()
 
-    def findAllByRoomId(self, roomId):
-        return self.itemRepository.findAllByRoomId(roomId)
+    def findAllByRoomId(self, room_id):
+        return self.itemRepository.findAllByRoomId(room_id)
+
+    def saveSelectedItems(self, room_id, selectedItems):
+        return self.itemRepository.saveItems(room_id, selectedItems)
