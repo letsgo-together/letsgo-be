@@ -12,7 +12,7 @@ class ItemMemoryRepository:
 
     def saveItems(self, selectedItems):
         for item in selectedItems:
-            item.id = len(self.items) + 1
+            item["id"] = len(self.items) + 1
             self.items.append(item)
         return selectedItems
 
