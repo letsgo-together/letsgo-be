@@ -5,6 +5,12 @@ itemRouter = Blueprint('itemRouter', __name__)
 itemService = ItemService.getInstance()
 
 
+@itemRouter.get('/items/detect')
+def detectItems():
+    imageFile = request.files.get('image')
+    return itemService.detectItems(imageFile)
+
+
 @itemRouter.get('/items/<room_id>')
 def findAllByRoomId(room_id):
     return itemService.findAllByRoomId(room_id)
