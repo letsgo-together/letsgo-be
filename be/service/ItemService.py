@@ -1,5 +1,5 @@
 from be.repository.ItemMemoryRepository import ItemMemoryRepository
-from ai.object_comparison import detect_objects
+from ai.de import detect_objects, find_and_describe_object
 from be.util.util import changeClassNameToKor
 import numpy as np
 import cv2
@@ -35,3 +35,17 @@ class ItemService:
 
     def saveSelectedItems(self, selectedItems):
         return self.itemRepository.saveItems(selectedItems)
+
+    def findItemPosition(self, imageFile, class_name):
+        if imageFile is None:
+            return "No image file uploaded", 400
+        file_bytes = imageFile.read()
+        nparr = np.frombuffer(file_bytes, np.uint8)
+        image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        if image is None:
+            return "Failed to process the image", 400
+
+        description = find_and_describe_object(image, class_name)
+        return {
+            description: description
+        }

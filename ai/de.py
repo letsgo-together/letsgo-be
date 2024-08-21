@@ -1,6 +1,7 @@
 import cv2
 import torch
 import uuid
+from be.util.util import changeClassNameToKor
 
 # YOLO 모델 로드
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
@@ -61,12 +62,9 @@ def describe_relative_position(selected_object, all_objects):
     return ', '.join(description)
 
 
-def find_and_describe_object(image_path, selected_item_name):
-    """이미지에서 객체를 탐지하고 선택된 물건의 위치를 설명합니다."""
-    image = cv2.imread(image_path)
-
+def find_and_describe_object(image, selected_item_name):
     if image is None:
-        print(f"Error: Unable to load image at {image_path}")
+        print(f"Error: Unable to load image")
         return None
 
     # 객체 탐지
@@ -75,7 +73,7 @@ def find_and_describe_object(image_path, selected_item_name):
     # 선택된 물건 찾기
     selected_object = None
     for obj in detected_objects:
-        if obj['class_name'] == selected_item_name:
+        if changeClassNameToKor(obj['class_name']) == selected_item_name:
             selected_object = obj
             break
 
@@ -90,9 +88,10 @@ def find_and_describe_object(image_path, selected_item_name):
     return position_description
 
 
-# 이미지 파일 경로와 선택된 물건 이름 설정
-image_path = '/Users/haneul/Downloads/사물이미지.jpg'  # 실제 이미지 경로로 수정
-selected_item_name = 'cell'  # 예: 'bottle'
+if __name__ == '__main__':
+    # 이미지 파일 경로와 선택된 물건 이름 설정
+    image_path = '/Users/haneul/Downloads/사물이미지.jpg'  # 실제 이미지 경로로 수정
+    selected_item_name = 'cell'  # 예: 'bottle'
 
-# 위치 설명 함수 실행
-find_and_describe_object(image_path, selected_item_name)
+    # 위치 설명 함수 실행
+    find_and_describe_object(image_path, selected_item_name)
