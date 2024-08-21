@@ -11,20 +11,20 @@ def detectItems():
     return itemService.detectItems(imageFile)
 
 
-@itemRouter.get('/items/<room_id>')
-def findAllByRoomId(room_id):
-    return itemService.findAllByRoomId(room_id)
+@itemRouter.get('/items')
+def findAllByRoomId():
+    return itemService.findAll()
 
 
-@itemRouter.post('/items/<room_id>')
-def saveSelectedItems(room_id):
+@itemRouter.post('/items')
+def saveSelectedItems():
     data = request.get_json()
     if data is None:
         return "No data provided", 400
 
-    requestData = []
+    selectedItems = []
     for item in data:
-        requestData.append({
+        selectedItems.append({
             'bbox': item.get('bbox'),
             'confidence': item.get('confidence'),
             'class_id': item.get('class_id'),
@@ -32,4 +32,4 @@ def saveSelectedItems(room_id):
             'unique_id': item.get('unique_id')
         })
 
-    return itemService.saveSelectedItems(room_id, requestData)
+    return itemService.saveSelectedItems(selectedItems)

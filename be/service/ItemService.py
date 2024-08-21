@@ -1,4 +1,4 @@
-from be.repository.ItemRepository import ItemRepository
+from be.repository.ItemMemoryRepository import ItemMemoryRepository
 from ai.object_comparison import detect_objects
 import numpy as np
 import cv2
@@ -14,7 +14,7 @@ class ItemService:
         return cls.instance
 
     def __init__(self):
-        self.itemRepository = ItemRepository.getInstance()
+        self.itemRepository = ItemMemoryRepository.getInstance()
 
     def detectItems(self, imageFile):
         if imageFile is None:
@@ -27,8 +27,8 @@ class ItemService:
         detectedItems = detect_objects(image)
         return detectedItems
 
-    def findAllByRoomId(self, room_id):
-        return self.itemRepository.findAllByRoomId(room_id)
+    def findAll(self):
+        return self.itemRepository.findAll()
 
-    def saveSelectedItems(self, room_id, selectedItems):
-        return self.itemRepository.saveItems(room_id, selectedItems)
+    def saveSelectedItems(self, selectedItems):
+        return self.itemRepository.saveItems(selectedItems)
