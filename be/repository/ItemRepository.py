@@ -49,7 +49,8 @@ class ItemRepository:
         savedItems = []
         for item in items:
             self.cursor.execute(query, (
-            room_id, item['bbox'], item['confidence'], item['class_id'], item['class_name'], item['unique_id']))
+                room_id, str(item['bbox']), item['confidence'], item['class_id'], item['class_name'], item['unique_id']
+            ))
             self.connection.commit()
             savedItems.append(ItemEntity(
                 id=self.cursor.lastrowid,

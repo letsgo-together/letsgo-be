@@ -32,7 +32,7 @@ class RoomService:
         detectedItems = detect_objects(image)
 
         newRoom = self.roomRepository.save()
-        newItems = self.itemRepository.createItem(newRoom.id, detectedItems)
+        newItems = self.itemRepository.saveItems(newRoom.id, detectedItems)
 
         return newItems
 
