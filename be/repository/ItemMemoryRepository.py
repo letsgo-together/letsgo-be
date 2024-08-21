@@ -11,9 +11,11 @@ class ItemMemoryRepository:
         self.items = []
 
     def saveItems(self, selectedItems):
+        result = []
         for item in selectedItems:
             item["id"] = len(self.items) + 1
-            self.items.append(item)
+            result.append(item)
+        self.items = result
         return selectedItems
 
     def findAll(self):

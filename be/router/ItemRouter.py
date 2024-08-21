@@ -23,7 +23,7 @@ def saveSelectedItems():
         return "No data provided", 400
 
     selectedItems = []
-    for item in data:
+    for item in data['selectedItems']:
         selectedItems.append({
             'bbox': item.get('bbox'),
             'confidence': item.get('confidence'),
