@@ -2,10 +2,13 @@ from flask import Flask
 from router.ItemRouter import itemRouter
 import sys
 from dotenv import load_dotenv
+from flask_cors import CORS
+
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 app.register_blueprint(itemRouter)
 
